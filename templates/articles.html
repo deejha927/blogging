@@ -1,0 +1,241 @@
+{% include 'navbar.html' %}
+{% load static %}
+{% static 'images' as img %}
+<html>
+    <head>
+        <title>Article Page</title>
+    </head>
+    <style>
+        .formstyle{
+            margin-left: auto ;
+            margin-right: auto ;
+            height:100%;
+            width: auto;
+            background-color: rgba(36, 35, 35, 0.726);
+            border-radius:10px;
+
+        }
+        body{
+            background-image: linear-gradient(to top, rgba(235, 240, 252, 0.308), rgba(0, 119, 255, 0.493));
+            height:100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .myForm{
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            cursor: pointer;              
+        }
+       
+        .div-design{
+            border:3px solid rgba(85, 82, 82, 0.363);
+            margin-left: auto ;
+            margin-right: auto ;
+            margin-top:20px;
+            height:auto;
+            width: 100%;
+            
+            border-radius:10px;
+        }
+        .title{
+            font: 40px Helvetica, Sans-Serif;
+            letter-spacing: -1px;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: 700;
+        }
+        .img-thumbnail{
+            height:100%;
+            width:100%;
+        }
+        .drop{
+            float:right;
+            font-size:35px;
+        }
+        .dropdown-menu{
+            background-color: rgba(139, 129, 129, 0.829);
+        }
+        .dropdown-item{
+            color:white;
+            font-weight: 600;
+        }
+        .textarea-design{
+
+            width:100%;
+            height:500px;
+            color:rgb(31, 30, 30);
+            font-size: 20px;
+            background-color:rgb(255, 255, 255);
+            border-radius:10px;
+        }
+        .btn-style
+        {
+            width:200px;
+            border-radius:30px;
+            color:rgb(245, 237, 237);
+        }
+    </style>
+    
+    <body onload="colorchan();">
+        
+        <div id="blogimage" class="myForm formstyle">
+            <i class="fa fa-times" style="float:right;font-size:35px;color:white;" onclick="closeform1()"> </i><br><br>
+            <form action="/update_img" method="post" enctype="multipart/form-data" >
+                <div class="Container-fluid">
+                    <div class="row" style="border:2px dashed white;">
+                        <div class="col-md-12" style="height:auto;width:100%;border-radius:10px;">
+                                {% csrf_token %}
+                                <center><label class="title">Select New Blog Image</label><br>
+                                <input type="text" name="title" value="{{blog_post.id}}" style="display:none">
+                                <input type="file" accept='image/*' name="image" onchange="openFile(event)" style="color:white;" required ><br>
+                                <img id="output" width="100%" height="30%" style="display:none;margin-top:10px;border:2px solid white;"><br>
+                                <input type="submit" class="btn btn-primary btn-style" value="Change Image" style="margin-top:20px;margin-bottom:10px;"></center>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="blogcontent" class="myForm">
+            
+            <form action="#" class="formstyle" method="POST">
+                <i class="fa fa-times" style="float:right;font-size:35px;color:white;"  onclick="closeForm()"></i><br><br>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8" style="border:2px dashed white;">
+                        <center><h1 style="color:white;">Edit Blog Content</h1></center>
+                        <textarea name="blog1"   id="blog"  class="textarea-design" required>{{blog_post.body}}</textarea><br>
+                        <center><input type="button" value="CHANGE" data-blogid="{{blog_post.id}}" id="check" class="btn btn-danger btn-style" style="margin-top:20px;margin-bottom:1%;"></center>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="blogtheme" class="myForm formstyle">
+            <i class="fa fa-times" style="float:right;font-size:35px;color:white;" onclick="closeform2()"></i><br><br>
+            <center>
+                <div class="container" style="border:2px dashed white;"> 
+                    <h1 style="color:white">Select Your Color Theme</h1>
+                    <input type="button" value="CHANGE" data-blogid="{{blog_post.id}}" id="colors" class="btn btn-danger btn-style" style="margin-top:20px;"><br>
+                    <input type="color" id="scheme"  style="width:100px;height:100px;margin-top:20px;margin-bottom:2%" colorformat="rgba">
+                </div>
+            </center>
+        </div>
+            <div class="container" class="div-design"  id="demo">
+                {% if 'userid' in request.session %}
+                <div class="dropdown" >
+                    <i class="dropdown-toggle drop" data-toggle="dropdown" style="margin-top:10px;">
+                    </i>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#" onclick="openform1()"><i class="fa fa-camera-retro" aria-hidden="true" style="font-size:20px;font-weight:600;"></i> Change Blog Image</a>
+                      <a class="dropdown-item" href="#" onclick="openForm()"><i class="fa fa-book" aria-hidden="true" style="font-size:20px;font-weight:600;"></i> Edit Blog Content</a>
+                      <a class="dropdown-item" href="#" onclick="openform2()"><i class="fa fa-paint-brush" aria-hidden="true" style="font-size:20px;font-weight:600;"></i> Change Theme</a>
+                      <a class="dropdown-item" href="#" data-blogid="{{blog_post.id}}" id="delete"><i class="fa fa-trash" aria-hidden="true" style="font-size:20px;font-weight:600;"></i> Delete This Blog</a>
+                    </div>
+                  </div><br>
+                  {% endif %}
+                  
+                  <p class="title">{{blog_post.title|upper}}</p> 
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-md-12">
+                        <img src="{{img}}/{{blog_post.blog_image}}" class="img-thumbnail" alt="image not found">
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-md-12" style="margin-bottom:20px;background-color:rgba(145, 142, 142, 0.288)">
+                            <center><b>{{blog_post.body}}</b></center>
+                        </div>
+                    </div>
+                </div>
+                <div style="float:right;font-weight:600;color:rgb(63, 61, 61);margin-bottom:50px;">Publisher: {{blog_post.publisher.first_name}} {{blog_post.publisher.last_name}}</div>
+            </div>
+    </body>
+    <script src="{% static 'Files/article.js'%}"></script>
+    <script>
+        var colorscheme=document.getElementById("colors")
+            colorscheme.addEventListener("click",function(){
+                var bid=this.dataset.blogid;
+                var colorvalue=document.getElementById("scheme").value;
+                updatecolor(bid,colorvalue)
+            })
+            function updatecolor(bid,colors)
+            {
+                var url='/color'
+                fetch(url,{
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json',
+                        'X-CSRFToken':csrftoken,
+                    },
+                    body:JSON.stringify({'blogid':bid,'color':colors})
+                })
+                .then((response)=>{
+                    return response.json()
+                })
+
+                .then((data)=>{
+                    location.reload(true);
+                    console.log("value:",data)
+                    
+                })
+            }
+        function colorchan()
+        {   
+            document.getElementById("demo").style.background="{{blog_post.blog_color}}";
+        }
+        var openFile = function(file) {
+            var input = file.target;
+            document.getElementById("output").style.display = "block";
+            var reader = new FileReader();
+            reader.onload = function(){
+              var dataURL = reader.result;
+              var output = document.getElementById('output');
+              output.src = dataURL;
+             
+            };
+            reader.readAsDataURL(input.files[0]);
+          };
+          $(document).ready(function(){
+            $("#delete").on('click', function(){
+                var id=this.dataset.blogid;
+                var answer = window.confirm("Are You Sure You Want To Delete This Blog?");
+                    if (answer) {
+                        del_blog(id)
+                    }
+                    else {
+                    }
+                
+                });
+        });
+        function del_blog(bid)
+            {
+                var url='/delete'
+                fetch(url,{
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json',
+                        'X-CSRFToken':csrftoken,
+                    },
+                    body:JSON.stringify({'blogid':bid})
+                })
+                .then((response)=>{
+                    return response.json()
+                })
+
+                .then((data)=>{
+                    alert(data)
+                    window.location.href = "/blogs";
+                    
+                })
+            }
+    </script>
+</html>

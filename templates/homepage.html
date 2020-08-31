@@ -1,0 +1,64 @@
+{% include 'navbar.html' %}
+{% load static %}
+{% static 'images' as img %}
+<html>
+    <head>
+        <title>Explore</title>
+    </head>
+    <style>
+        .centered {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color:black;
+            font-weight: 700;
+          }
+        body{
+            background-image: linear-gradient(to top, rgba(235, 240, 252, 0.308), rgba(0, 119, 255, 0.493));
+            height: auto;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .div-design{
+            margin-top:2%;
+            box-shadow:2px 2px 6px 0px;
+            border-radius: 5px;
+            height: auto;
+        }
+        .div-design:hover
+        {
+            box-shadow:8px 5px 6px 0px;
+        }
+        .empty-div{
+            margin-top:20px;
+            box-shadow:8px 5px 6px 0px;
+            border-radius: 5px;
+            height: 165px;
+        }
+        .div-color{
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 2px;
+        }
+        
+    </style>   
+    <body>
+        <div class="container" >
+            <div class="row">
+                {% for val in data %}
+                    <div class="col-md-6" style="margin-bottom:2%;">
+                        <div class="div-design" style="background-image: url('{{img}}/{{val.blog_image}}');background-position: center;background-repeat: no-repeat;background-size: cover;">
+                            <h3 style="font-weight:600;color:rgb(201, 201, 212);text-align:center;background:rgba(54, 52, 52, 0.568);border-radius:5px;">{{val.title|upper}}</h3><br>
+                            <div class="div-color" style="color:rgba(12, 12, 12, 0.781);font-size:20px;width:80%;margin-left:2%;">{{val.body|slice:"0:110"}}..</div>
+                            <div style="text-align:right;"><a href="{% url 'explore' val.pk %}" style="color:rgba(12, 9, 9, 0.767);font-weight:700;background-color:rgba(255, 255, 255, 0.322)">Read More..</a></div>
+                            <div style="text-align:left;color:rgb(255, 255, 255);margin-top:15px;font-weight:650;">{{val.published_date}}</div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+    </body>
+</html>

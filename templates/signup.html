@@ -1,0 +1,100 @@
+{% load static %}
+<html>
+    <head>
+        <title>Bootstrap Example</title>
+        <meta charset="utf-8">
+        <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'Files/bootstrap.min.css' %}">
+        <script src="{% static 'Files/jquery.min.js'%}"></script>
+        <script src="{% static 'Files/popper.min.js'%}"></script>
+        <script src="{% static 'Files/bootstrap.min.js'%}"></script>
+        <script src="{% static 'Files/icon.js'%}"></script>
+      </head>
+    <style>
+        
+        body{
+            background-color: white;
+        }
+        
+        .head-design{
+            color:rgb(2, 22, 7);
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size:45px;
+            word-spacing: -8px;
+            font-weight: 700;
+        }
+        .div-design{
+            height:300px;
+            margin-left: auto ;
+            margin-right: auto ;
+        }
+        .btn-self
+        {
+            color:white;
+            width:200px;
+            border-radius:30px;
+            background-color:rgb(15, 218, 99);
+            border-color: rgb(15, 218, 99);
+        }
+        .btn-self:hover{
+            color:white;
+            background-color:rgb(22, 170, 84);
+            border-color: rgb(22, 170, 84);
+        }
+        .hr-desgin{
+            border-right: 2px solid rgb(15, 15, 15);
+            
+        }
+        
+    </style>
+    <body onload="loading();">
+        <img src="{% static 'images/logo2.png' %}" height="30px"  style="float:left;margin-top:10px;">
+        <a href="/myblog" style="float:right;font-size:45;text-decoration: none;">
+            <i class="fa fa-times" style="float:right;font-size:50px;color:rgb(34, 34, 34);"></i>
+        </a>
+        
+            <center><font class="head-design">Sign Up</font><br>
+            <p style="font-size:20px;color:gray;">Already have an account? <a href="/login" style="text-decoration: none;color:rgb(21, 245, 114);">Log In</a></p>
+        </center>
+        <div class="row" style="margin-top:50px;">
+                <div class="col-md-8 div-design">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form method="POST" action="#" class=" form-group has-feedback">
+                                {% csrf_token %}
+                                <input type="text" class="form-control" placeholder="FIRST NAME" name="fname" required><br>
+                                <input type="text" class="form-control" placeholder="LAST NAME" name="lname" required><br> 
+                               
+                        </div>
+                        <div class="col-md-6 ">
+                            <input type="email" class="form-control" placeholder="EMAIL" name="mail" required><br>
+                            <input type="password" class="form-control" placeholder="PASSWORD" name="password" id="password" onkeyup="passcheck();" required>
+                            <div id="passinfo" style="margin-top:10px;font-size:14px;color:rgb(15, 15, 15)">
+                                <b>Password Must Have 8 Characters. <span id="first"></span><br>
+                                Password Must Have Number And Special Character.<span id="second"></span><br>
+                                Password Must Have Captial Letters.<span id="third"></span><br>
+                                Example:Mjk123@(_</b>
+                            </div><br>
+                            <input type="password" class="form-control" placeholder="CONFIRM PASSWORD" name="password1" id="password1" onkeyup="validatepassword();" required>
+                            <p id="error_msg"></p>
+                        </div>
+                    </div>
+                    <center><input type="submit" value="Register" class="btn btn-lg btn-self disaabled" id="imp-btn"  disabled>
+                        <p style="color:rgb(248, 32, 32);margin-top:20px;font-weight:700;">{{msg}}</p></center></form>
+                </div>
+        </div><br>
+        <footer class="page-footer font-small blue pt-4">
+            <p style="text-align:center;color:rgb(88, 88, 88);font-size:12px;margin-top:20px;">
+                By logging in, you agree to our Terms of Use and to<br>
+                receive Batman emails & updates and acknowledge that <br>
+                you read our Privacy Policy.
+            </p>
+            </footer>
+    </body>
+    <script src="{% static 'Files/validate.js'%}"></script>
+    <script>
+        $(function(){
+            $("#passinfo").hide();})
+    </script>
+</html>

@@ -1,0 +1,84 @@
+{% include 'navbar.html' %}
+{% load static %}
+{% static 'images' as img %}
+<html>
+    <head>
+        <title>Blogs</title>
+    </head>
+    <style>
+        .centered {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color:black;
+            font-weight: 700;
+          }
+        body{
+            background-image: linear-gradient(to top, rgba(235, 240, 252, 0.308), rgba(0, 119, 255, 0.493));
+            height: auto;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .div-design{
+            margin-top:20px;
+            box-shadow:8px 5px 6px 0px;
+            border-radius: 5px;
+            height: 20px;
+        }
+        .empty-div{
+            margin-top:20px;
+            box-shadow:8px 5px 6px 0px;
+            border-radius: 5px;
+            height: 165px;
+        }
+        .div-color{
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 2px;
+        }
+        .blog-des{
+            border:1px solid rgba(24, 24, 24, 0.466);
+            height:auto;
+            border-radius: 10px;
+        }
+        .blog-des:hover{
+            box-shadow:1px 2px 5px 0px;
+            border:1px solid rgba(128, 128, 128, 0.63);
+            border-radius: 10px;
+        }
+        .icon1-design{
+            margin-top:30px;
+            float:right;
+            font-size:25px;
+            margin-right:20px;
+            color:rgb(80, 80, 80);
+        }
+    </style>   
+    <body>
+        <div class="container">
+            {% for val in myblog %}
+            <a href="{% url 'article' val.pk %}" style="text-decoration: none;">
+                <div class="row blog-des" style="margin-top:30px;margin-bottom:10px;" id="blogs">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-sm-1" >
+                                <img src="{{img}}/{{val.blog_image}}" width="100%" height="85%" style="border-radius:5px;margin-top:10%;margin-bottom:10%;">
+                            </div>
+                            <div class="col-md-3">
+                                <h5 style="color:rgb(59, 58, 58);margin-top:5%;">{{val.title}}</h5>
+                                <h6 style="color:rgba(83, 83, 83, 0.856);margin-top:5%;">Published: {{val.published_date}}</h6>
+                            </div>
+                            <div class="col-md-8" id="item">
+                                <span style="margin-top:5%;margin-bottom:5%;float:right;font-size:25px;color:rgb(80, 80, 80);"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>{% endfor %}
+        </div>
+    </body>
+    <script src="{% static 'Files/delete.js'%}">   
+    </script>
+</html>

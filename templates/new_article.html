@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog Publish</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="{% static 'Files/icon.js'%}"></script>
+
+</head>
+<style>
+    body{
+        background-image: linear-gradient(to top, rgba(235, 240, 252, 0.308), rgba(0, 119, 255, 0.493));
+        height:auto;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    #back-img:hover{
+            background-color: rgba(155, 152, 152, 0.336);
+            border-radius:50%;
+    }
+    .text-style{
+        height: 40px;
+        width:100%;
+        outline: 0;
+        border-width: 0 0 2px;
+        border-color: rgba(247, 199, 94, 0.753);
+        background-color:rgba(255, 255, 255, 0);
+
+      }
+      .text-style:focus {
+        border-color: rgb(1, 255, 158)
+      }
+      .btn-style{
+            height:40px;
+            width:150px;
+            border:1px solid rgba(107, 101, 101, 0.445);
+      }
+      .update-style{
+        height:50px;
+        display:block;
+        border:1px solid rgb(240, 119, 49);
+        border-radius:5px;
+        background-color:rgb(240, 119, 49);
+        font-weight: 700;
+        color:white;
+        text-transform: uppercase;
+      }
+      .textarea-design{
+        font-size:40px;
+        font-weight: 600;
+        margin-top:40px;
+        margin-bottom:20px;
+        width:100%;
+        height:400px;
+        outline: 0;
+        border-width: 0px;
+        color:rgb(31, 30, 30);
+        font-size: 15px;
+        text-align: left;
+        background-color:rgba(238, 230, 230, 0);
+        border-radius:10px;
+    }
+    .span-style{
+        text-transform: uppercase;
+        font-size:30px;
+        text-align:center;
+        background:#4ec7f3;
+        color:white;
+        display:block;
+    }
+    #output{
+        width:100%;
+        height:300px;
+        margin-top:10px;
+        border:2px dashed rgb(252, 248, 248);
+        border-radius:12px;
+        background:rgba(219, 175, 175, 0.233);
+        
+    }
+    
+    .textcenter{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .contain {
+        position: relative;
+        text-align: center;
+        color: rgba(63, 62, 62, 0.733);
+      }
+      #image{
+        position: absolute;
+        top: 8%;
+        width: 100%;
+        height: 300px;
+        opacity:0;
+      }
+     
+</style>
+<body>
+    <div class="row">
+        <div class="col-md-12">
+            <a href='/blogs' style="text-decoration: none;"><img src="{% static 'images/backarrow.png'%}" id="back-img" style="height:45px;float:left;margin-top:15px;margin-left:15px;"></a>
+            <img src="{% static 'images/logo2.png' %}" height="40px" style="margin-left:10px;margin-top:15px;">
+        </div>
+    </div>
+    <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal">
+        {% csrf_token %}
+        <div class="row" style="margin-top:20px;">
+            <div class="col-md-9" >
+                <div class="container-fluid">
+                    <h5 style="color:rgb(68, 68, 68)">Title</h5>
+                    <input type="text" class="text-style" placeholder="Title" name="title" required>
+                    <textarea class="textarea-design" placeholder="Your Blog Content Here" name="text1" required></textarea>
+                </div>
+            </div>
+            <div class="col-md-3" style="height:500px;border-left:1px solid rgba(0, 0, 0, 0.219);">
+                <center><span class="span-style"> Select Blog Image </span></center>
+                        <div class="contain">
+                            <img id="output" > 
+                            <div class="textcenter" id="disapper">Click Here To Select Image</div>
+                        </div>
+                        <input type="file" accept='image/*' name="image" onchange="openFile(event)" id="image" style="color:rgb(78, 76, 76);margin-top:20px;" required ><br>
+                        <center>
+                            <button type="submit" class="update-style" style="margin-top:40px;">
+                            <i class="fab fa-telegram" aria-hidden="true" style="font-size:20px;"></i> Publish Blog</button>
+                        </center>
+            </div>   
+        </div>
+    </form>
+</body>
+<script>
+    $(document).ready(function(){
+        $("#image").on('click', function(){
+            $("#disapper").hide();
+            });
+    });
+    var openFile = function(file) {
+        
+        var input = file.target;
+        var reader = new FileReader();
+        reader.onload = function(){
+          var dataURL = reader.result;
+          var output = document.getElementById('output');
+          output.src = dataURL;
+         
+        };
+        reader.readAsDataURL(input.files[0]);
+      };
+</script>
+</html>

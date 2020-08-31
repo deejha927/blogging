@@ -1,0 +1,267 @@
+{% include 'navbar.html' %}
+{% load static %}
+{% static 'images' as img %}
+
+<html>
+    <head>
+        <title>Profile</title>
+        <link rel="shortcut icon" href="{% static 'images/profile.png' %}" type="image/x-icon">
+    </head>
+    <style>
+        body{
+            background-image: linear-gradient(to top, rgba(99, 109, 247, 0.863), rgba(237, 92, 250, 0.849));
+            height:auto;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .profile-div{
+            height:auto;
+            width:100%;
+            background-color:white;
+            border-radius:15px;
+            margin: 0 auto;
+            margin-bottom: 10px;
+        }
+        .img-style{
+            margin-top:3%;
+            border-radius:50%;
+            height:150px;
+            width:150px;
+            box-shadow:0px 5px 10px 1px #3c3c3df8;
+        }
+        .name-style{
+            margin-top:1%;
+            font-size:30px;
+            text-align:center;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-weight: 600;
+           color:rgb(117, 104, 235);
+
+        }
+        .loc-style{
+            color:rgb(124, 122, 122);
+            font-size:20px; 
+            font-family:Georgia, 'Times New Roman', Times, serif ;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+        .btn-style{
+            height: auto;
+            width:150px;
+            display:block;
+            border-radius:25px;
+            background-image: linear-gradient(to left, rgb(1, 66, 245), rgba(5, 169, 245, 0.849));
+            border-color:white;
+            color:white;
+            margin-top:7%;
+            margin-bottom: 20px;
+        }
+       
+        .small-div{
+            height:auto;
+            width:100%;
+            
+        }
+        .h3-style{
+            font-size:27px;
+            font-weight: 600;
+            color:rgb(75, 74, 74);
+            font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .mail-style{
+            font-size:20px;
+            font-weight: 600;
+            color:rgb(75, 74, 74);
+            font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .h5-style{
+            font-size:15px;
+            font-weight: 700;
+            color:rgb(105, 103, 103);
+            margin-top:5%;
+            font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .logo-style
+        {
+            height:70px;
+            width:70px;
+            border-radius: 50%;
+        }
+        .myForm{
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            cursor: pointer;
+            background:rgba(94, 94, 94, 0.5);              
+        }
+        .profile-img{
+            border:2px dashed rgb(250, 250, 250);
+            border-radius:50%;
+            width:140px;
+            height:140px;
+            background-color:rgba(78, 182, 241, 0.356);
+            margin-top:50px;
+        }
+        .update-style{
+            height: auto;
+            width:40%;
+            display:block;
+            border-radius:25px;
+            background-image: linear-gradient(to left, rgb(1, 245, 103), rgba(5, 245, 133, 0.849));
+            color:white;
+            margin-top:5%;
+            margin-bottom: 5%;
+        }
+        .update-style:hover,.btn-style:hover{
+            color:white;
+        }
+        #image{
+            position: absolute;
+            top: 5%;
+            right:40%;
+            border-radius:50%;
+            width:140px;
+            height:140px;
+            border: 1px solid black;
+            opacity: 0;
+          }
+        #img-text{
+            position: absolute;
+            top: 16%;
+            right:43.5%;
+            color:gray;
+            font-weight: 600;
+        }
+    </style>
+    <body>
+        <div class="container-fluid">
+            <div class="row myForm" id="Profile">
+                
+                <form action="/updateprofile" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                    {% csrf_token %}
+                    <div class="col-md-5 profile-div" style="margin-top:10px;">
+                        <i class="fa fa-times" style="float:right;font-size:35px;" onclick="closeForm()"></i>
+                        <center>
+                            <p id="img-text">Profile Image<br>Here</p>
+                            <img  id="output" class="profile-img"><br>
+                            <input type="file" accept='image/*' name="image" onchange="openFile(event)" id="image" style="color:rgb(78, 76, 76);margin-top:20px;" >
+                            <br><br>
+                            <input type="Text" class="form-control" placeholder="First Name" name="fname" value="{{reg.first_name}}" required><br>
+                            <input type="Text" class="form-control" placeholder="Last Name" name="lname" value="{{reg.last_name}}" required><br>
+                            <input type="Email" class="form-control" placeholder="Email" name="mail" value="{{reg.user_email}}" required><br>
+                            <input type="password" class="form-control" placeholder="Email" name="mail" value="{{reg.user_pass}}" required><br>
+                            <input type="submit" value="Change Profile" class="btn btn-lg update-style"><br>
+                        </center>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="container">
+        <div class="row">
+            <div class="col-md-7 profile-div">
+                <div>
+                    <center><img src="{{img}}/{{reg.profile_pic}}" class="img-style"></center>
+                </div>
+                <div class="name-style">{{reg.first_name}} {{reg.last_name}}</div>
+                <div>
+                    <center>
+                        <i class="fas fa-map-marker-alt" style="font-size:30px;"></i>
+                        <span class="loc-style">Nashik, India</span>
+                    </center>
+                </div>
+                <div class="container">
+                    <div class="row" style="Margin-top:50px;">
+                    
+                        <div class="col-md-3 small-div">
+                            <center>
+                                <h3 class="h3-style">{{count}}</h3>
+                                <h5 class="h5-style">Total Blog</h5>
+                            </center>
+                        </div>
+                        <div class="col-md-6 small-div">
+                            <center>
+                                <h3 class="mail-style">{{reg.user_email}}</h3>
+                                <h5 class="h5-style">Current Email</h5>
+                            </center>
+                        </div>
+                        <div class="col-md-3 small-div">
+                            <center>
+                                <h3 style="font-size:22px;font-weight: 600;color:rgb(75, 74, 74);font-family:-apple-system;">
+                                    {{reg.age}}</h3>
+                                <h5 class="h5-style">D.O.B</h5>
+                            </center>
+                        </div>   
+                    </div>
+                    </div>
+                    <div class="row" style="Margin-top:50px;">
+                        <div class="col-md-2">
+                            <center>
+                                <img src="{% static 'images/twitter.png' %}" class="logo-style">
+                            </center>
+                        </div>
+                        <div class="col-md-2">
+                            <center>
+                                <img src="{% static 'images/youtube.png' %}" class="logo-style">
+                            </center>
+                        </div>
+                        <div class="col-md-2">
+                            <center>
+                                <img src="{% static 'images/insta.png' %}" class="logo-style">
+                            </center>
+                        </div>
+                        <div class="col-md-2">
+                            <center>
+                                <img src="{% static 'images/github.png' %}" class="logo-style">
+                            </center>
+                        </div>
+                        <div class="col-md-2">
+                            <center>
+                                <img src="{% static 'images/google.png' %}" class="logo-style">
+                            </center>
+                        </div>
+                        <div class="col-md-2">
+                            <center>
+                                <img src="{% static 'images/facebook.png' %}" class="logo-style">
+                            </center>
+                        </div>
+                    </div>
+                    <center><input type="button" class="btn btn-lg btn-style" value="Edit Profile" onclick="openForm()"></center>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        function openForm() {
+            document.getElementById("Profile").style.display = "block";
+            }
+        function closeForm() {
+            document.getElementById("Profile").style.display = "none";
+            }
+        var openFile = function(file) {
+    
+            var input = file.target;
+            var reader = new FileReader();
+            reader.onload = function(){
+                var dataURL = reader.result;
+                var output = document.getElementById('output');
+                output.src = dataURL;
+                
+            };
+            reader.readAsDataURL(input.files[0]);
+            };
+            $(document).ready(function(){
+                $("#image").on('click', function(){
+                    $("#img-text").hide();
+                    });
+                
+            });
+    </script>
+</html>
