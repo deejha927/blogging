@@ -15,41 +15,41 @@
             background-size: cover;
             box-shadow:2px 3px 6px 0px;
         }
-        
-       
+
+
         .p-style{
             color:white;
             font-size:18px;
             font-weight:600;
+            margin-left:2em;
         }
         .title{
             color:white;
-            font-size:115px;
+            font-size:70px;
             float:left;
             font-weight:770;
+            margin-left:0.5em;
         }
         .img-style
         {
             width:100%;
-            height:100%;
+            height:25em;
             box-shadow:2px 5px 6px 0px;
         }
-    </style>  
+    </style>
     <body>
-        
+
         <div class="row" id="back">
-            <div class="container">
-            {% include 'navbar.html' %}      
+            {% include 'navbar.html' %}
                 <div class="col-md-9" style="margin: 0 auto;margin-top:10%;margin-bottom:15%;">
                     <h6 class="p-style">Hello! Welcome to</h6>
-                    <h1 class="title"> Awsome Blog</h1>
-                    <h6 class="p-style" style="width:70%">Readit is a remarkable free creative blog website 
-                        template with a bold and impactful design. If you 
-                        would like to establish a strong and memorable 
-                        first impression, Readit is the one template that 
+                    <h2 class="title">Blogging</h2>
+                    <h6 class="p-style" style="width:70%;margin-top:5em;">Readit is a remarkable free creative blog website
+                        template with a bold and impactful design. If you
+                        would like to establish a strong and memorable
+                        first impression, Readit is the one template that
                         will do the trick.</h6>
                 </div>
-            </div>
         </div>
         <div class="container">
             <div class="row" style="margin-top:4%;margin-bottom:4%;">
@@ -58,11 +58,23 @@
                 </div>
                 <div class="col-md-5">
                     <h1 style="width:70%;font-weight:800;">
-                        Build website in minutes with Awsome Templates.  
+                        Build website in minutes with Awsome Templates.
                     </h1>
                 </div>
             </div>
+            <div class="row" style="margin-top:4%;margin-bottom:4%;">
+                <div class="col-md-7">
+                    <img src="{% static 'images/blogsnew.jpg'%}" class="img-style">
+                </div>
+                <div class="col-md-5">
+                    <h1 style="width:70%;font-weight:800;">
+                        Creating News Blogs Become More Easier.
+                        Add HD Images To Your Own Blogs.
+                    </h1>
+                </div>
+
+            </div>
         </div>
-        
+
     </body>
 </html>

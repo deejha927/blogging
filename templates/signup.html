@@ -12,11 +12,11 @@
         <script src="{% static 'Files/icon.js'%}"></script>
       </head>
     <style>
-        
+
         body{
             background-color: white;
         }
-        
+
         .head-design{
             color:rgb(2, 22, 7);
             font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -44,16 +44,16 @@
         }
         .hr-desgin{
             border-right: 2px solid rgb(15, 15, 15);
-            
+
         }
-        
+
     </style>
     <body onload="loading();">
         <img src="{% static 'images/logo2.png' %}" height="30px"  style="float:left;margin-top:10px;">
         <a href="/myblog" style="float:right;font-size:45;text-decoration: none;">
             <i class="fa fa-times" style="float:right;font-size:50px;color:rgb(34, 34, 34);"></i>
         </a>
-        
+
             <center><font class="head-design">Sign Up</font><br>
             <p style="font-size:20px;color:gray;">Already have an account? <a href="/login" style="text-decoration: none;color:rgb(21, 245, 114);">Log In</a></p>
         </center>
@@ -64,8 +64,8 @@
                             <form method="POST" action="#" class=" form-group has-feedback">
                                 {% csrf_token %}
                                 <input type="text" class="form-control" placeholder="FIRST NAME" name="fname" required><br>
-                                <input type="text" class="form-control" placeholder="LAST NAME" name="lname" required><br> 
-                               
+                                <input type="text" class="form-control" placeholder="LAST NAME" name="lname" required><br>
+
                         </div>
                         <div class="col-md-6 ">
                             <input type="email" class="form-control" placeholder="EMAIL" name="mail" required><br>
@@ -81,16 +81,9 @@
                         </div>
                     </div>
                     <center><input type="submit" value="Register" class="btn btn-lg btn-self disaabled" id="imp-btn"  disabled>
-                        <p style="color:rgb(248, 32, 32);margin-top:20px;font-weight:700;">{{msg}}</p></center></form>
+                        <p style="color:rgb(248, 32, 32);margin-top:20px;margin-bottom:20px;font-weight:700;">{{msg}}</p></center></form>
                 </div>
-        </div><br>
-        <footer class="page-footer font-small blue pt-4">
-            <p style="text-align:center;color:rgb(88, 88, 88);font-size:12px;margin-top:20px;">
-                By logging in, you agree to our Terms of Use and to<br>
-                receive Batman emails & updates and acknowledge that <br>
-                you read our Privacy Policy.
-            </p>
-            </footer>
+        </div>
     </body>
     <script src="{% static 'Files/validate.js'%}"></script>
     <script>

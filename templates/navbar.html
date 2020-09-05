@@ -1,7 +1,7 @@
 {% load static %}
 <html lang="en">
 <head>
-  
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{% static 'Files/bootstrap.min.css' %}">
@@ -33,7 +33,7 @@ const csrftoken = getCookie('csrftoken');
   .a-style{
     background-color:rgba(233, 229, 229, 0.562);
     color:rgb(66, 64, 64);
-    
+
   }
   .a-style:hover{
 
@@ -41,10 +41,11 @@ const csrftoken = getCookie('csrftoken');
     color:white;
     border-radius:15px;
   }
-    
+
 </style>
+<div class="container">
   <nav class="navbar navbar-expand-lg navbar-light ">
-    
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -83,8 +84,10 @@ const csrftoken = getCookie('csrftoken');
                   <li class="nav-item">
                     <a class="nav-link a-style" href="/signup" style="color:white">SIGN UP</a>
                   </li>
-            </ul> 
+            </ul>
         {% endif %}
       </div>
     </div>
   </nav>
+</div>
+<br>

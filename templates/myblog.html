@@ -54,7 +54,7 @@
             margin-right:20px;
             color:rgb(80, 80, 80);
         }
-    </style>   
+    </style>
     <body>
         <div class="container">
             {% for val in myblog %}
@@ -63,7 +63,7 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-sm-1" >
-                                <img src="{{img}}/{{val.blog_image}}" width="100%" height="85%" style="border-radius:5px;margin-top:10%;margin-bottom:10%;">
+                                <img src="{{img}}/{{val.blog_image}}" style="height:100px;width:90px;border-radius:5px;margin-top:10%;margin-bottom:10%;">
                             </div>
                             <div class="col-md-3">
                                 <h5 style="color:rgb(59, 58, 58);margin-top:5%;">{{val.title}}</h5>
@@ -71,7 +71,7 @@
                             </div>
                             <div class="col-md-8" id="item">
                                 <span style="margin-top:5%;margin-bottom:5%;float:right;font-size:25px;color:rgb(80, 80, 80);"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -79,6 +79,6 @@
             </a>{% endfor %}
         </div>
     </body>
-    <script src="{% static 'Files/delete.js'%}">   
+    <script src="{% static 'Files/delete.js'%}">
     </script>
 </html>

@@ -32,9 +32,9 @@
             right: 0;
             bottom: 0;
             z-index: 2;
-            cursor: pointer;              
+            cursor: pointer;
         }
-       
+
         .div-design{
             border:3px solid rgba(85, 82, 82, 0.363);
             margin-left: auto ;
@@ -42,7 +42,7 @@
             margin-top:20px;
             height:auto;
             width: 100%;
-            
+
             border-radius:10px;
         }
         .title{
@@ -54,8 +54,8 @@
             font-weight: 700;
         }
         .img-thumbnail{
-            height:100%;
-            width:100%;
+            height:35em;
+            width:100%
         }
         .drop{
             float:right;
@@ -84,9 +84,9 @@
             color:rgb(245, 237, 237);
         }
     </style>
-    
+
     <body onload="colorchan();">
-        
+
         <div id="blogimage" class="myForm formstyle">
             <i class="fa fa-times" style="float:right;font-size:35px;color:white;" onclick="closeform1()"> </i><br><br>
             <form action="/update_img" method="post" enctype="multipart/form-data" >
@@ -105,7 +105,7 @@
             </form>
         </div>
         <div id="blogcontent" class="myForm">
-            
+
             <form action="#" class="formstyle" method="POST">
                 <i class="fa fa-times" style="float:right;font-size:35px;color:white;"  onclick="closeForm()"></i><br><br>
                 {% csrf_token %}
@@ -122,7 +122,7 @@
         <div id="blogtheme" class="myForm formstyle">
             <i class="fa fa-times" style="float:right;font-size:35px;color:white;" onclick="closeform2()"></i><br><br>
             <center>
-                <div class="container" style="border:2px dashed white;"> 
+                <div class="container" style="border:2px dashed white;">
                     <h1 style="color:white">Select Your Color Theme</h1>
                     <input type="button" value="CHANGE" data-blogid="{{blog_post.id}}" id="colors" class="btn btn-danger btn-style" style="margin-top:20px;"><br>
                     <input type="color" id="scheme"  style="width:100px;height:100px;margin-top:20px;margin-bottom:2%" colorformat="rgba">
@@ -142,8 +142,8 @@
                     </div>
                   </div><br>
                   {% endif %}
-                  
-                  <p class="title">{{blog_post.title|upper}}</p> 
+
+                  <p class="title">{{blog_post.title|upper}}</p>
                 <div class="row" style="margin-top:10px;">
                     <div class="col-md-12">
                         <img src="{{img}}/{{blog_post.blog_image}}" class="img-thumbnail" alt="image not found">
@@ -185,11 +185,11 @@
                 .then((data)=>{
                     location.reload(true);
                     console.log("value:",data)
-                    
+
                 })
             }
         function colorchan()
-        {   
+        {
             document.getElementById("demo").style.background="{{blog_post.blog_color}}";
         }
         var openFile = function(file) {
@@ -200,7 +200,7 @@
               var dataURL = reader.result;
               var output = document.getElementById('output');
               output.src = dataURL;
-             
+
             };
             reader.readAsDataURL(input.files[0]);
           };
@@ -213,7 +213,7 @@
                     }
                     else {
                     }
-                
+
                 });
         });
         function del_blog(bid)
@@ -234,7 +234,7 @@
                 .then((data)=>{
                     alert(data)
                     window.location.href = "/blogs";
-                    
+
                 })
             }
     </script>

@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -24,7 +23,7 @@ SECRET_KEY = '@4!a+z_gchp5)g0t1y@v%_ymh^x%i_vm19nabh*y^%-*2a0%-6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+ALLOWED_HOSTS =['*']
 
 
 # Application definition
@@ -75,11 +74,11 @@ WSGI_APPLICATION = 'blogging.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blogging',
-        'USER':'root',
-        'PASSWORD':'',
-        'HOST':'localhost'
+       'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'deejha$blogging',
+        'USER':'deejha',
+        'PASSWORD':'!@#$%^&*()_',
+        'HOST':'deejha.mysql.pythonanywhere-services.com',
     }
 }
 

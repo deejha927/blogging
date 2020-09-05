@@ -10,7 +10,7 @@ import datetime
 from django.utils.dateparse import parse_date
 def homepage(request):
     return render(request,"index.html")
-    
+
 def firstpage(request):
     data=blog_post.objects.all().order_by('-id')
     return render(request,"homepage.html",{"data":data})
@@ -121,8 +121,6 @@ def newart(request):
             print(request.POST["text1"])
             uid=request.session.get('userid')
             reg=register.objects.get(pk=uid)
-            valid_user=User.objects.get()
-            uid=valid_user.id
             blog=blog_post()
             blog.title=request.POST["title"]
             blog.publisher=reg
@@ -133,7 +131,7 @@ def newart(request):
             myblog=blog_post.objects.filter(publisher_id=reg.id).order_by('-id')
             return render(request,"myblog.html",{"myblog":myblog})
         else:
-            return render(request,"homepage.html")   
+            return render(request,"homepage.html")
     return render(request,"new_article.html")
 
 
