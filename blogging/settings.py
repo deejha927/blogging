@@ -75,10 +75,10 @@ WSGI_APPLICATION = 'blogging.wsgi.application'
 DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'deejha$blogging',
-        'USER':'deejha',
-        'PASSWORD':'!@#$%^&*()_',
-        'HOST':'deejha.mysql.pythonanywhere-services.com',
+        'NAME': 'blogging',
+        'USER':'root',
+        'PASSWORD':'',
+        'HOST':'localhost',
     }
 }
 

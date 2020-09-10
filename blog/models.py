@@ -10,7 +10,7 @@ class register(models.Model):
     user_pass=models.CharField(max_length=100)
     first_name=models.CharField(max_length=100,null=True,blank=True)
     last_name=models.CharField(max_length=100,null=True,blank=True)
-    profile_pic=models.ImageField(upload_to="",null=True,blank=True)
+    profile_pic=models.ImageField(upload_to="",default="user.png",null=True,blank=True)
     age=models.DateField(null=True,blank=True)
     account_created_date=models.DateField(auto_now_add=True)
     

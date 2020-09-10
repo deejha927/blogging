@@ -24,10 +24,12 @@ class explore(DetailView):
     template_name="explore_article.html"
 
 def myblog(request):
-    uid=request.session.get('userid')
-    reg=register.objects.get(pk=uid)
-    myblog=blog_post.objects.filter(publisher_id=reg.id).order_by('-id')
-    return render(request,"myblog.html",{"myblog":myblog})
+    if 'userid' in request.session:
+        uid=request.session.get('userid')
+        reg=register.objects.get(pk=uid)
+        myblog=blog_post.objects.filter(publisher_id=reg.id).order_by('-id')
+        return render(request,"myblog.html",{"myblog":myblog})
+    return render(request,"login.html",{"msg":"You Are Not Logged In."})
 
 
 def login(request):
@@ -47,8 +49,10 @@ def login(request):
     return render(request,"login.html")
 
 def logout(request):
-    del request.session["userid"]
-    return render(request,"index.html")
+    if 'userid' in request.session:
+        del request.session["userid"]
+        return render(request,"index.html")
+    return render(request,"login.html")
 
 def user_register(request):
     f=0
@@ -76,7 +80,7 @@ def updatecontent(request):
         update_blog.body=data["textdata"]
         update_blog.save()
         return JsonResponse("Your Blog Content Has Been Changed",safe=False)
-    return JsonResponse("You Are Not Logined",safe=False)
+    return JsonResponse("You Are Not Logged In",safe=False)
 
 
 def updateimg(request):
@@ -112,8 +116,8 @@ def deleteblog(request):
     return JsonResponse("Deleted",safe=False)
 
 def newart(request):
-    if request.method=="POST":
-        if 'userid' in request.session:
+    if 'userid' in request.session:
+        if request.method=="POST":
             files = request.FILES  # multivalued dict
             image = files.get("image")
             print(image)
@@ -130,9 +134,9 @@ def newart(request):
             reg=register.objects.get(pk=uid)
             myblog=blog_post.objects.filter(publisher_id=reg.id).order_by('-id')
             return render(request,"myblog.html",{"myblog":myblog})
-        else:
-            return render(request,"homepage.html")
-    return render(request,"new_article.html")
+        return render(request,"new_article.html")
+    return render(request,"login.html",{"msg":"You Are Not Logged In."})
+
 
 
 def profile(request):
@@ -142,7 +146,7 @@ def profile(request):
         blogs=blog_post.objects.filter(publisher_id=reg).count()
     return render(request,"profile.html",{"reg":reg,"count":blogs})
 
-def changeprofile(request):
+def updateprofile(request):
     if 'userid' in request.session:
         uid=request.session.get('userid')
         reg=register.objects.get(pk=uid)
@@ -156,3 +160,34 @@ def changeprofile(request):
             reg.profile_pic=image
             reg.save()
     return render(request,"profile.html",{"reg":reg,"count":blogs})
+
+def changeprofile(request):
+    if 'userid' in request.session:
+        uid=request.session.get('userid')
+        reg=register.objects.get(pk=uid)
+        return render(request,"edit_profile.html",{"reg":reg})
+    else:
+        return render(request,"login.html")
+
+def updatepassword(request):
+    if 'userid' in request.session:
+        if request.method=="POST":
+            uid=request.session.get('userid')
+            reg=register.objects.get(pk=uid)
+            blogs=blog_post.objects.filter(publisher_id=reg).count()
+            reg.user_pass=request.POST["main-password"]
+            reg.save()
+            return render(request,"profile.html",{"reg":reg,"msg":"Your Password Has Been Updated.","count":blogs})
+    return render(request,"login.html",{"msg":"You Are Not Logged In."})
+
+def birthupdate(request):
+    if 'userid' in request.session:
+        if request.method=="POST":
+            uid=request.session.get('userid')
+            reg=register.objects.get(pk=uid)
+            blogs=blog_post.objects.filter(publisher_id=reg).count()
+            reg.age=request.POST["dob"]
+            reg.save()
+            return render(request,"profile.html",{"reg":reg,"msg":"D.O.B Updated.","count":blogs})
+    return render(request,"login.html",{"msg":"You Are Not Logged In."})
+

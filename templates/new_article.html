@@ -1,3 +1,4 @@
+{% include 'navbar.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -105,36 +106,32 @@
      
 </style>
 <body>
-    <div class="row">
-        <div class="col-md-12">
-            <a href='/blogs' style="text-decoration: none;"><img src="{% static 'images/backarrow.png'%}" id="back-img" style="height:45px;float:left;margin-top:15px;margin-left:15px;"></a>
-            <img src="{% static 'images/logo2.png' %}" height="40px" style="margin-left:10px;margin-top:15px;">
-        </div>
-    </div>
-    <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal">
-        {% csrf_token %}
-        <div class="row" style="margin-top:20px;">
-            <div class="col-md-9" >
-                <div class="container-fluid">
-                    <h5 style="color:rgb(68, 68, 68)">Title</h5>
-                    <input type="text" class="text-style" placeholder="Title" name="title" required>
-                    <textarea class="textarea-design" placeholder="Your Blog Content Here" name="text1" required></textarea>
+    <div class="container">
+        <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal">
+            {% csrf_token %}
+            <div class="row" style="margin-top:20px;">
+                <div class="col-md-9" >
+                    <div class="container-fluid">
+                        <h5 style="color:rgb(68, 68, 68)">Title</h5>
+                        <input type="text" class="text-style" placeholder="Title" name="title" required>
+                        <textarea class="textarea-design" placeholder="Your Blog Content Here" name="text1" required></textarea>
+                    </div>
                 </div>
+                <div class="col-md-3" style="height:500px;border-left:1px solid rgba(0, 0, 0, 0.219);">
+                    <center><span class="span-style"> Select Blog Image </span></center>
+                            <div class="contain">
+                                <img id="output" > 
+                                <div class="textcenter" id="disapper">Click Here To Select Image</div>
+                            </div>
+                            <input type="file" accept='image/*' name="image" onchange="openFile(event)" id="image" style="color:rgb(78, 76, 76);margin-top:20px;" required ><br>
+                            <center>
+                                <button type="submit" class="update-style" style="margin-top:40px;">
+                                <i class="fab fa-telegram" aria-hidden="true" style="font-size:20px;"></i> Publish Blog</button>
+                            </center>
+                </div>   
             </div>
-            <div class="col-md-3" style="height:500px;border-left:1px solid rgba(0, 0, 0, 0.219);">
-                <center><span class="span-style"> Select Blog Image </span></center>
-                        <div class="contain">
-                            <img id="output" > 
-                            <div class="textcenter" id="disapper">Click Here To Select Image</div>
-                        </div>
-                        <input type="file" accept='image/*' name="image" onchange="openFile(event)" id="image" style="color:rgb(78, 76, 76);margin-top:20px;" required ><br>
-                        <center>
-                            <button type="submit" class="update-style" style="margin-top:40px;">
-                            <i class="fab fa-telegram" aria-hidden="true" style="font-size:20px;"></i> Publish Blog</button>
-                        </center>
-            </div>   
-        </div>
-    </form>
+        </form>
+    </div>
 </body>
 <script>
     $(document).ready(function(){

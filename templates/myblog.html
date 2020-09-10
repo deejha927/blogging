@@ -56,7 +56,7 @@
         }
     </style>
     <body>
-        <div class="container">
+        <div class="container" style="margin-bottom:5em;">
             {% for val in myblog %}
             <a href="{% url 'article' val.pk %}" style="text-decoration: none;">
                 <div class="row blog-des" style="margin-top:30px;margin-bottom:10px;" id="blogs">
@@ -78,6 +78,7 @@
                 </div>
             </a>{% endfor %}
         </div>
+        {% include 'footer.html' %}
     </body>
     <script src="{% static 'Files/delete.js'%}">
     </script>

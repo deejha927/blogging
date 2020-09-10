@@ -17,8 +17,9 @@ urlpatterns = [
     path("delete",views.deleteblog,name="delete"),
     path("profile",views.profile,name="profile"),
     path("new",views.newart,name="new"),
-    path("updateprofile",views.changeprofile,name="updateprofile")
-
-
+    path("changeprofile",views.changeprofile,name="change"),
+    path("updateprofile",views.updateprofile,name="updateprofile"),
+    path("updatepassword",views.updatepassword,name="updatepassword"),
+    path("birthupdate",views.birthupdate,name="birthupdate")
 
 ]

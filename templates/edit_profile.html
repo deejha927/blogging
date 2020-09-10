@@ -1,0 +1,201 @@
+{% include 'navbar.html' %}
+{% load static %}
+{% static 'images' as img %}
+<head>
+    <title>Change Profile</title>
+</head>
+<style>
+        body{
+            background-image: linear-gradient(to top, rgba(99, 109, 247, 0.863), rgba(237, 92, 250, 0.849));
+            height:auto;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .profile-img{
+            
+            border-radius:50%;
+            width:140px;
+            height:140px;
+            background-color:rgba(223, 238, 247, 0);
+            margin-top:20px;
+        }
+        .main-style{
+            height: auto;
+           
+            display:block;
+            border:2px solid white;
+            color:white;
+        }
+        .main-style:hover{
+            color:white;
+            box-shadow: 2px 2px 6px 0px;
+        }
+        .myForm{
+            position: fixed;
+            
+            background:rgba(14, 13, 13, 0.644);
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            cursor: pointer;
+        }
+        #image{
+            border:2px dashed white;
+            color:white;
+            margin-top:20px;
+            height:70px;
+            width:94%;
+            position: absolute;
+            top: 31%;
+            right:3%;
+            opacity:0;
+        }
+        .col2{
+            border:2px dashed white;
+            
+        }
+        .textcenter{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+          .custom{
+                border:2px dashed white;
+                color:white;
+                margin-top:20px;
+                height:70px;
+                width:100%;
+          }
+          .label-style{
+              color:white;
+              font-size:25px;
+              font-weight: 800;
+          }
+        .dob-style{
+            height: auto;
+            display:block;
+            border:2px solid black;
+            color:black;
+        }
+        .dob-div{
+            margin:10 auto;
+            background:white;
+            border-radius:10px;
+            height:200px;
+        }
+        .date-style{
+            border:2px dashed rgb(44, 43, 43);
+            color:rgb(74, 248, 74);
+            font-weight:600;
+        }
+</style>
+<body>
+    <div class="myForm" id="password-change">
+        <i class="fa fa-ban" aria-hidden="true" style="float:right;font-size:40px;color:white;" id="cancel"></i><br><br>
+        <div class="col-md-4" style="margin:auto;">
+            <form action="/updatepassword" method="POST">
+                {% csrf_token %}
+                    <label class="label-style">New Password</label><br>
+                    <input type="password" class="form-control" placeholder="New Password" id="password" onkeyup="passcheck();" name="main-password" required ><br>
+                        <div id="passinfo" style="margin-top:10px;font-size:14px;color:rgb(255, 255, 255)">
+                            <b>Password Must Have 8 Characters. <span id="first"></span><br>
+                            Password Must Have Number And Special Character.<span id="second"></span><br>
+                            Password Must Have Captial Letters.<span id="third"></span><br>
+                            Example:Mjk123@(_</b>
+                        </div><br>
+                    <label class="label-style">Confirm New Password</label><br>
+                    <input type="password" class="form-control" placeholder="Confirm New Password" id="password1" onkeyup="validatepassword();" required>
+                    <p id="error_msg"></p><br>
+                    <input type="submit" value="UPDATE PASSWORD" class="btn btn-lg btn-block main-style disabled" id="imp-btn">
+            </form>
+        </div>
+    </div>
+    <div class="myForm" id="dob-change">
+        <i class="fa fa-ban" aria-hidden="true" style="float:right;font-size:40px;color:white;" id="cancel1"></i><br><br>
+        <form action="/birthupdate" method="POST">
+            {% csrf_token %}
+            <div class="col-md-3 dob-div">
+                <center><label class="label-style" style="color:black;">DATE OF BIRTH</label><br><br>
+                <input type="date" class="date-style" name="dob" max="2010-12-31" required></center>
+                <input type="submit" value="UPDATE D.O.B" class="btn btn-lg btn-block dob-style" style="margin-top: 2em;">
+            </div>
+        </form>
+    </div>
+    <div class="container" style="margin:auto;">
+        <div class="row" id="Profile" style="margin-bottom:3em;">
+            <div class="col-md-5 col2" >
+                <form action="/updateprofile" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                    {% csrf_token %}
+                    <div>
+                            <center>
+                                <img id="output" src="{{img}}/{{reg.profile_pic}}" class="profile-img"><br>
+                                <a href="#" style="font-weight:700;text-decoration:none;color:white" id="img">Select New Profile Picture</a><br><br>
+                                <div id="hiding">
+                                    <div class="custom">
+                                        <p style="margin-top:4%;font-weight:700;font-size:20px;">Click Here To Select Image</p>
+                                    </div>
+                                    <input type="file" accept='image/*' name="image" onchange="openFile(event)" id="image"><br>
+                                </div>
+                                <input type="Text" class="form-control" placeholder="First Name" name="fname" value="{{reg.first_name}}" required><br>
+                                <input type="Text" class="form-control" placeholder="Last Name" name="lname" value="{{reg.last_name}}" required><br>
+                                <input type="Email" class="form-control" placeholder="Email" name="mail" value="{{reg.user_email}}" required><br>
+                                <input type="submit" value=" UPDATE " class="btn btn-lg btn-block main-style"><br>    
+                            </center>
+                        </div>
+                </form>
+            </div>
+            <div class="col-md-3 col2">
+                <div style="margin-top:10%;">
+                    <input type="button" value="CHANGE PASSWORD" class="btn btn-lg btn-block main-style" id="pass"><br>
+                    <input type="button" value="CHANGE D.O.B" class="btn btn-lg btn-block main-style" id="dob"><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="{% static 'Files/validate.js'%}"></script>
+
+<script>
+    var openFile = function(file) {
+
+            var input = file.target;
+            var reader = new FileReader();
+            reader.onload = function(){
+                var dataURL = reader.result;
+                var output = document.getElementById('output');
+                output.src = dataURL;
+
+            };
+            reader.readAsDataURL(input.files[0]);
+        };
+        $("#passinfo").hide();
+        $("#password-change").hide();
+        $("#dob-change").hide();
+        $("#hiding").hide();
+
+        $("#pass").click(function(){
+            $("#password-change").show();
+        });
+
+        $("#dob").click(function(){
+            $("#dob-change").show();
+        });
+
+        $("#img").click(function(){
+            $("#hiding").toggle();
+          });
+
+        $("#cancel").click(function(){
+            $("#password-change").hide();
+        });
+
+        $("#cancel1").click(function(){
+            $("#dob-change").hide();
+        });
+</script>
